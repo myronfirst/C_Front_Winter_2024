@@ -49,11 +49,17 @@ int main() {
 
 ## Compiling
 
-gcc -Wall -Wextra -std=c99 -o main main.c gcc compile chain here
+gcc -Wall -Wextra -Wpedantic -std=c99 -o main main.c gcc
+
+- compile chain here
 
 ---
 
 ## Debugging Live Demo
+
+hello world with some variables
+build on vscode with wsl
+configure and run gdb
 
 ---
 
@@ -61,12 +67,12 @@ gcc -Wall -Wextra -std=c99 -o main main.c gcc compile chain here
 
 ```c
 int main() {
-    int a = 3 + 2;
-    int b = 3 - 1;
-    int c = a % b;
-    c++;
-    --c;
-    c = 2, 0;
+    int a = 3 + 2; // 5
+    int b = 3 - 1; // 2
+    int c = a % b; // 3
+    c++; //4
+    --c; //5
+    c = 2, 0; //0
     bool d = a $lt; c;
     if (d) print
     else if (a == c) print
@@ -76,15 +82,44 @@ int main() {
 
 ---
 
-## table - operator - arguments - return type - comment
+- Think of each operator a function
+  - Takes one/two arguments
+  - Returns a value
+  - May modify the state of an argument
+
+| Operator | x Type    | Y Type    | Return Type | Detail          |
+| -------- | --------- | --------- | ----------- | --------------- |
+| x < y    | numerical | numerical | boolean     | x, y share Type |
+| x == y   | any       | any       | boolean     | x, y share Type |
+| ++x      | integer   |           | integer     | modifies x      |
 
 ---
 
-## operator precedence associativity table
+## Precedence & Associativity
 
----
+- Precedence
+  - Which is evaluated first
+- Associativity
+  - On same precedence, evaluate Left-to-Right or Right-to-Left
+
+```c
+int main() {
+    int a = 3 * 2 + 1; // Precedence
+    int b = 6;
+    int c = 5;
+    a = b = c = 10; // Associativity Right-to-Left
+}
+```
+
+## [](https://en.cppreference.com/w/c/language/operator_precedence)
 
 ## Scope
+
+- Governs variable visibility
+- Increases/Decreases on bracket open/close
+  - Other rules can also cause scope change
+- Each scope can access the variables of all open upper scopes
+- Global scope is accessible by all
 
 ```c
 const bool c = false;
@@ -97,136 +132,168 @@ int main() {
               print (a, b, c);
             }
         }
-        print b //error
-        static int s = 3;
+        print b // compiler error
 }
 ```
 
 ---
 
-## Internal External linkage
+## Enum - Typedef
 
-    ```c
-          extern const int External;
-          const int External = false;
-          static const int Internal = false;
-              int main() {}
-    ```
-    ---
-    ## Enum Switch
-    ```c
-          enum Color {
-              Red,
-              Green,
-              Blue,
-          };
-          typedef enum Color Color;
-          int main() {
-              Color c = Red;
-              if (c == Red) print(Red);
-              else if (c == Green) print(Green);
-              else if (c == Blue) print(Blue);
-              else print(Error);
-              c = Green;
-              switch (c) {
-                  case Red:
-                      print(Red);
-                      break;
-                  case Green:
-                      print(Green);
-                      break;
-                  case Blue:
-                      print(Blue);
-                      break;
-                  default:
-                      print(Error);
-              }
-          }
-    ```
-    ---
-    ## Loops
-    ```c
-          int main() {
-              const int limit = 10;
-              int i = 0;
-              while (i $lt; limit) {
-                  print(i);
-                  i += 1;
-              }
-              for (int i = 0; i $lt; limit; ++i) {
-                  print(i);
-              }
-              int j = 3;
-              bool isDone = false;
-              while(!isDone) {
-                  if (j > 0) {
-                      --j;
-                      continue;
-                  }
-                  isDone = true;
-              }
-              for(;;) break;
-          }
-    ```
-    ---
+- Enumerator
+  - A type which can hold distinct values
+- Typedef
+  - Way to alias a type name
 
-## Implicit - Explicit type conversions
+```c
+      enum Color {
+          Red,
+          Green,
+          Blue,
+      };
+      typedef enum Color Color;
+      int main() {
+        // enum Color c = Red;
+        print(sizeof(Color));
+        Color c = Red;
+        if (c == Red) print(Red);
+        else if (c == Green) print(Green);
+        else if (c == Blue) print(Blue);
+        else print(Error);
+      }
+```
 
-    ---
-    ## Functions
-    ```c
-          bool IsEven(int val) {return val % 2;}
-          void PrintEven(int val, bool isEven) {
-              if(isEven) printf("%d is Even\n", val, isEven);
+---
+
+## Switch
+
+- if/else syntax for enums/ints
+
+```c
+      enum Color {
+          Red,
+          Green,
+          Blue,
+      };
+      typedef enum Color Color;
+      int main() {
+          c = Green;
+          switch (c) {
+              case Red:
+                  print(Red);
+                  break;
+              case Green:
+                  print(Green);
+                  break;
+              case Blue:
+                  print(Blue);
+                  break;
+              default:
+                  print(Error);
           }
-          int main() {
-            for (int i = 0; i $lt; 10; ++i)
-                PrintEven(i, IsEven(i));
+      }
+```
+
+---
+
+## Loops
+
+```c
+      int main() {
+          const int limit = 10;
+          int i = 0;
+          while (i $lt; limit) {
+              print(i);
+              i += 1;
           }
-    ```
-    ---
-    ## Call By Value
-    ```c
-          int Increment(int val) {val += 1;}
-          int main() {
-            int i = 0;
-            Increment(i);
-            print(i);
+          for (int i = 0; i $lt; limit; ++i) {
+              print(i);
           }
-    ```
-    ---
-      ## Pointers
+          int j = 3;
+          bool isDone = false;
+          while(!isDone) {
+              if (j > 0) {
+                  --j;
+                  continue;
+              }
+              isDone = true;
+          }
+          for(;;) break;
+      }
+```
+
+---
+
+---
+
+## Functions
+
+- Reusable pieces of code
+
+```c
+      bool IsEven(int val) {return val % 2;}
+      void PrintEven(int val, bool isEven) {
+          if(isEven) printf("%d is Even\n", val, isEven);
+      }
+      int main() {
+        for (int i = 0; i $lt; 10; ++i)
+            PrintEven(i, IsEven(i));
+      }
+```
+
+---
+
+## Call By Value
+
+```c
+void Increment(int val) {val += 1;}
+int main() {
+  int i = 0;
+  Increment(i);
+  printf("%d\n", i);
+}
+```
+
+- Output?
+
+Add blocks of memory on the right
+
+---
+
+## Pointers
+
+- Holds an address in memory
+- 8 byte size in 64-bit systems
+- 4 byte size in 32-bit systems
 
 ````c
-                int G = 1;
-                int* const GPtr = &G;
-                int main() {
-                  *GPtr += 1;
-                  print(GPtr)
-                  print(*GPtr)
-                  char c = '0';
-                  char* const cPtr = &c;
-                  print(cPtr)
-                  print(*cPtr)
-                  int* p = NULL;
-                  print(x);
-                  p = GPtr;
-                  *p +=1;
-                  print(x);
-                  print(*x);
-                }
-               ```
-        ---
-
-      ## Call By Reference trick
-        ---
-
-      ## Structs
-        ---
-
-      ## C-Arrays
-        ---
-
-      ## Dynamic Allocation
-        ---
+  int G = 1;
+  int* const GPtr = &G;
+  int main() {
+    print(sizeof(int*))
+    print(sizeof(char*))
+    *GPtr += 1;
+    print(GPtr)
+    print(*GPtr)
+    char c = '0';
+    char* const cPtr = &c;
+    print(cPtr)
+    print(*cPtr)
+    int* p = NULL;
+    print(x);
+    p = GPtr;
+    *p +=1;
+    print(x);
+    print(*x);
+  }
+ ```
+   ---
+ ## Call By Reference trick
+   ---
+ ## Structs
+   ---
+ ## C-Arrays
+   ---
+ ## Dynamic Allocation
+   ---
 ````
