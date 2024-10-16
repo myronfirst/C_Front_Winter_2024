@@ -1,4 +1,4 @@
-## Types & Variables
+### Types & Variables
 
 - Visualize variables as blocks in memory
 - Each block associated with
@@ -16,6 +16,8 @@ int main() {
 }
 ```
 
+---
+
 | Name | Address | Value |
 | ---- | ------- | ----- |
 | L    | 100     | 2     |
@@ -27,7 +29,7 @@ int main() {
 
 ---
 
-## SizeOf
+## `SizeOf`
 
 - Primitive types have their size defined at compile time
 - `sizeof` operator returns size of type/variable in bytes
@@ -49,9 +51,13 @@ int main() {
 
 ## Compiling
 
-gcc -Wall -Wextra -Wpedantic -std=c99 -o main main.c gcc
+    gcc -Wall -Wextra -Wpedantic -std=c99 -o main main.c
 
-- compile chain here
+- `-Wall` warnings
+- `-Wextra`more warnings
+- `-Wpedantic` strict ISO C compliance warnings
+- `-std=c99` pick language standard: ISO C99
+  ![BuildChain](https://www3.ntu.edu.sg/home/ehchua/programming/cpp/images/GCC_CompilationProcess.png)
 
 ---
 
@@ -67,13 +73,13 @@ configure and run gdb
 
 ```c
 int main() {
-    int a = 3 + 2; // 5
-    int b = 3 - 1; // 2
-    int c = a % b; // 3
-    c++; //4
-    --c; //5
-    c = 2, 0; //0
-    bool d = a $lt; c;
+    int a = 3 + 2;
+    int b = 3 - 1;
+    int c = a % b;
+    c++;
+    --c;
+    c = 2, 0;
+    bool d = a < c;
     if (d) print
     else if (a == c) print
     else print
