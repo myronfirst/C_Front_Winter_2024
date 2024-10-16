@@ -18,18 +18,11 @@ int main() {
 
 ---
 
-| Name | Address | Value |
-| ---- | ------- | ----- |
-| L    | 100     | 2     |
-| C    | 108     | 'A'   |
-| ...  | ...     |       |
-| a    | 1024    | 0     |
-| c    | 1030    | 'a'   |
-| p    | 1031    | 0     |
+![slide1.png](assets/slide1.png)
 
 ---
 
-## `SizeOf`
+## `sizeof` operator
 
 - Primitive types have their size defined at compile time
 - `sizeof` operator returns size of type/variable in bytes
