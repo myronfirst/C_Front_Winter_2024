@@ -22,7 +22,7 @@ int main() {
 
 ---
 
-## `sizeof` operator
+### `sizeof` operator
 
 - Primitive types have their size defined at compile time
 - `sizeof` operator returns size of type/variable in bytes
@@ -33,6 +33,7 @@ int main() {
       printf("%d", sizeof(a));
       printf("%d", sizeof(char));
       printf("%d", sizeof(int));
+      printf("%d", sizeof(bool));
       printf("%d", sizeof(double));
       printf("%d", sizeof(char*));
       printf("%d", sizeof(long*));
@@ -40,29 +41,44 @@ int main() {
 }
 ```
 
+```shell
+output
+```
+
 ---
 
-## Compiling
+### Compiling
 
-    gcc -Wall -Wextra -Wpedantic -std=c99 -o main main.c
+```bash
+gcc -Wall -Wextra -Wpedantic -std=c99 -o main main.c
+```
 
 - `-Wall` warnings
-- `-Wextra`more warnings
+- `-Wextra` more warnings
 - `-Wpedantic` strict ISO C compliance warnings
-- `-std=c99` pick language standard: ISO C99
-  ![BuildChain](https://www3.ntu.edu.sg/home/ehchua/programming/cpp/images/GCC_CompilationProcess.png)
+- `-std=c99` pick language standard ISO C99
 
 ---
 
-## Debugging Live Demo
+![BuildChain](https://www3.ntu.edu.sg/home/ehchua/programming/cpp/images/GCC_CompilationProcess.png)
 
-hello world with some variables
-build on vscode with wsl
-configure and run gdb
+- **Preprocessor** parses your `#include` and `#define` directives
+- **Compiler** with assembler produce a machine instruction object file `.o` from a source code `.c` file
+- **Linker** combines object files to a single executable `.out/.exe`
 
 ---
 
-## Operators
+### Debugging
+
+notes:
+
+- hello world with some variables
+- build on vscode with wsl
+- configure and run gdb
+
+---
+
+### Operators
 
 ```c []
 int main() {
@@ -81,7 +97,7 @@ int main() {
 }
 ```
 
-```[1|2|3|4]
+```shell
 3
 3
 3
@@ -90,7 +106,7 @@ greater equal
 
 ---
 
-- Think of each operator a function
+- Think of each operator like a function
   - Takes one/two arguments
   - Returns a value
   - May modify the state of an argument
@@ -103,7 +119,7 @@ greater equal
 
 ---
 
-## Precedence & Associativity
+### Precedence & Associativity
 
 - Precedence
   - Which is evaluated first
@@ -119,9 +135,11 @@ int main() {
 }
 ```
 
+---
+
 [C Operator Precedence Table](https://en.cppreference.com/w/c/language/operator_precedence)
 
-## Scope
+### Scope
 
 - Governs variable visibility
 - Increases/Decreases on bracket open/close
@@ -144,13 +162,13 @@ int main() {
 }
 ```
 
-```
+```shell
 1 2 3
 ```
 
 ---
 
-## Enum - Typedef
+### Enum - Typedef
 
 - Enumerator
   - A type which can hold distinct values
@@ -175,14 +193,14 @@ int main() {
       }
 ```
 
-```
+```shell
 8
 Red
 ```
 
 ---
 
-## Switch
+### Switch
 
 - if/else syntax suitable for enums/ints
 
@@ -211,13 +229,13 @@ int main() {
 }
 ```
 
-```
+```shell
 Green
 ```
 
 ---
 
-## Loops
+### Loops
 
 ```c
 int main() {
@@ -242,7 +260,7 @@ int main() {
 }
 ```
 
-```
+```shell
 1 2 3 4 5
 1 2 3 4 5
 {3 0} {2 0} {1 0}
@@ -250,7 +268,7 @@ int main() {
 
 ---
 
-## Functions
+### Functions
 
 - Reusable pieces of code
 
@@ -265,13 +283,13 @@ int main() {
 }
 ```
 
-```
+```shell
 output here
 ```
 
 ---
 
-## Call By Value
+### Call By Value
 
 ```c
 void Increment(int val) {
@@ -286,7 +304,7 @@ int main() {
 }
 ```
 
-```
+```shell
 0
 1
 0
@@ -296,7 +314,7 @@ Add blocks of memory on the right
 
 ---
 
-## Pointers
+### Pointers
 
 We need a lot more backround before this example
 
@@ -328,7 +346,7 @@ We need a lot more backround before this example
 
 ---
 
-## Call By Reference trick
+### Call By Reference trick
 
 ```c
 void Increment(int* val) {
@@ -343,7 +361,7 @@ printf("%d\n", i);
 }
 ```
 
-```
+```shell
 0
 1
 1
@@ -351,7 +369,7 @@ printf("%d\n", i);
 
 ---
 
-## Structs
+### Structs
 
 - Allows definition of new type composed by simpler types
 - size is at least the sum of the member field sizes
@@ -375,7 +393,7 @@ int main() {
 }
 ```
 
-```
+```shell
 1 2
 3 4
 3 4
@@ -383,7 +401,7 @@ int main() {
 
 ---
 
-## C-Arrays
+### C-Arrays
 
 ```c
 struct Pair {
@@ -401,13 +419,13 @@ int main() {
 }
 ```
 
-```
+```shell
 output
 ```
 
 ---
 
-## C-Arrays as pointers
+### C-Arrays as pointers
 
 ```c
 #define NUMBERS_SIZE 10
@@ -433,13 +451,13 @@ int main() {
 }
 ```
 
-```
+```shell
 output
 ```
 
 ---
 
-## Dynamic Allocation
+### Dynamic Allocation
 
 ```c
 struct Pair {
@@ -474,13 +492,13 @@ int main() {
 }
 ```
 
-```
+```shell
 output
 ```
 
 ---
 
-## Defining a list
+### Defining a list
 
 ```c
 struct Player {
@@ -527,7 +545,7 @@ int main() {
 }
 ```
 
-```
+```shell
 output
 ```
 
