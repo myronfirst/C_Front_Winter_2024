@@ -1,12 +1,30 @@
+<!-- Add Recursion? -->
+<!-- Add Pointer to Pointer? -->
+<!-- Add Multi-Dim Array? -->
+<!-- Add stack-heap allocated strings? -->
+<!-- Add Arrays of Pointers? -->
+<!-- Add Calloc/Realloc? -->
+
+<!-- Don't forget shapes -->
+<!-- Don't forget godbolt links and output verification -->
+
+![The_C_Programming_Language_logo](assets/The_C_Programming_Language_logo.png)
+
+CS240 - Data Structures  
+Winter 2024
+
+---
+
 ### Types & Variables
 
 - Visualize variables as blocks in memory
-- Each block associated with
-  - Address
-  - Value
-- **Size** of variable determined by its type
+- Variable properties
+  - Address, Size, Value
+- Size
+  - Associated with its type
+  - Determines offset among addresses
 
-```c
+```c []
 long L = 2;
 const char C = 'A';
 int main() {
@@ -16,9 +34,9 @@ int main() {
 }
 ```
 
----
+===
 
-![slide1.png](assets/slide1.png)
+![variable_table](assets/variable_table.png)
 
 ---
 
@@ -27,7 +45,7 @@ int main() {
 - Primitive types have their size defined at compile time
 - `sizeof` operator returns size of type/variable in bytes
 
-```c
+```c []
 int main() {
       char a = '0';
       printf("%d", sizeof(a));
@@ -58,9 +76,22 @@ gcc -Wall -Wextra -Wpedantic -std=c99 -o main main.c
 - `-Wpedantic` strict ISO C compliance warnings
 - `-std=c99` pick language standard ISO C99
 
+notes:
+Suggestion:  
+Prefer picking the latest language standard like C11, or even C23.  
+Gives you access to useful language features.  
+Always check compiler support for picked standard.  
+Compilers installed in department machines may not support the latest standards.
+
+[Compiler Support](https://en.cppreference.com/w/c/compiler_support)
+
 ---
 
-![BuildChain](https://www3.ntu.edu.sg/home/ehchua/programming/cpp/images/GCC_CompilationProcess.png)
+### Compile Chain
+
+![Compile Chain](https://www3.ntu.edu.sg/home/ehchua/programming/cpp/images/GCC_CompilationProcess.png)
+
+===
 
 - **Preprocessor** parses your `#include` and `#define` directives
 - **Compiler** with assembler produce a machine instruction object file `.o` from a source code `.c` file
@@ -69,6 +100,8 @@ gcc -Wall -Wextra -Wpedantic -std=c99 -o main main.c
 ---
 
 ### Debugging
+
+Live Demo
 
 notes:
 
@@ -104,18 +137,14 @@ int main() {
 greater equal
 ```
 
----
+===
 
-- Think of each operator like a function
+- Visualize each operator as a function
   - Takes one/two arguments
   - Returns a value
-  - May modify the state of an argument
+  - May modify the state of its arguments
 
-| Operator | x Type    | Y Type    | Return Type | Detail          |
-| -------- | --------- | --------- | ----------- | --------------- |
-| x < y    | numerical | numerical | boolean     | x, y share Type |
-| x == y   | any       | any       | boolean     | x, y share Type |
-| ++x      | integer   |           | integer     | modifies x      |
+![operator_table](assets/operator_table.png)
 
 ---
 
@@ -126,7 +155,7 @@ greater equal
 - Associativity
   - On same precedence, evaluate Left-to-Right or Right-to-Left
 
-```c
+```c []
 int main() {
     int a = 3 * 2 + 1; // Precedence
     int b = 6;
@@ -135,19 +164,17 @@ int main() {
 }
 ```
 
----
+[Operator Precedence Table (Link)](https://en.cppreference.com/w/c/language/operator_precedence)
 
-[C Operator Precedence Table](https://en.cppreference.com/w/c/language/operator_precedence)
+---
 
 ### Scope
 
-- Governs variable visibility
-- Increases/Decreases on bracket open/close
-  - Other rules can also cause scope change
-- Each scope can access the variables of all open upper scopes
-- Global scope is accessible by all
+- Brackets can cause scope change
+- We can only access variables of active scopes
+- Global scope is always accessible
 
-```c
+```c []
 const bool c = false;
 int main() {
     int a = 1;
@@ -155,7 +182,7 @@ int main() {
         int b = 2;
         {
             int c = 3; // shadowing
-              printf("%d %d %d\n", a, b, c);
+            printf("%d %d %d\n", a, b, c);
         }
     }
     // a = b; //compiler error
@@ -168,29 +195,29 @@ int main() {
 
 ---
 
-### Enum - Typedef
+### `enum` - `typedef`
 
-- Enumerator
-  - A type which can hold distinct values
-- Typedef
-  - Way to alias a type name
+- An `enum` variable can hold one of predefined values
+- Keyword `typedef` used to alias a type name
 
-```c
-      enum Color {
-          Red,
-          Green,
-          Blue,
-      };
-      typedef enum Color Color;
-      int main() {
-        // enum Color c = Red; //Syntax without typedef
-        printf("%d\n",sizeof(Color));
-        Color c = Red;
-        if (c == Red) print("Red\n");
-        else if (c == Green) print("Green\n");
-        else if (c == Blue) print("Blue\n");
-        else print("Error\n");
-      }
+===
+
+```c []
+enum Color {
+    Red,
+    Green,
+    Blue,
+};
+typedef enum Color Color;
+int main() {
+    printf("%d\n",sizeof(Color));
+    Color c = Red;
+    // enum Color c = Red; //Syntax without typedef
+    if (c == Red)           printf("Red\n");
+    else if (c == Green)    printf("Green\n");
+    else if (c == Blue)     printf("Blue\n");
+    else                    printf("Error\n");
+}
 ```
 
 ```shell
@@ -202,9 +229,9 @@ Red
 
 ### Switch
 
-- if/else syntax suitable for enums/ints
+`if/else` syntax suitable for `enums/ints`
 
-```c
+```c []
 enum Color {
     Red,
     Green,
@@ -212,19 +239,12 @@ enum Color {
 };
 typedef enum Color Color;
 int main() {
-    c = Green;
+    Color c = Green;
     switch (c) {
-        case Red:
-            print(Red);
-            break;
-        case Green:
-            print(Green);
-            break;
-        case Blue:
-            print(Blue);
-            break;
-        default:
-            print(Error);
+        case Red:   printf("Red\n");    break;
+        case Green: printf("Green\n");  break;
+        case Blue:  printf("Blue\n");   break;
+        default:    printf("Error\n");
     }
 }
 ```
@@ -237,7 +257,7 @@ Green
 
 ### Loops
 
-```c
+```c []
 int main() {
     const int limit = 10;
     int i = 0;
@@ -248,6 +268,18 @@ int main() {
     printf("\n");
     for (int i = 0; i < limit; ++i) printf("%d ", i);
     printf("\n");
+}
+```
+
+```shell
+1 2 3 4 5
+1 2 3 4 5
+```
+
+===
+
+```c []
+int main() {
     int j = 3;
     bool isDone = false;
     while(!isDone) {
@@ -256,23 +288,25 @@ int main() {
         isDone = true;
     }
     printf("\n");
-    for(;;) break;
+    for(;;) {
+        printf("before break\n");
+        break;
+    }
 }
 ```
 
 ```shell
-1 2 3 4 5
-1 2 3 4 5
 {3 0} {2 0} {1 0}
+before break
 ```
 
 ---
 
 ### Functions
 
-- Reusable pieces of code
+Reusable pieces of code
 
-```c
+```c []
 bool IsEven(int val) {return val % 2;}
 void PrintEven(int val, bool isEven) {
     if(isEven) printf("%d is Even\n", val, isEven);
@@ -287,11 +321,14 @@ int main() {
 output here
 ```
 
----
+notes:
+difference between IsEven and isEven
 
-### Call By Value
+===
 
-```c
+### Call-By-Value
+
+```c []
 void Increment(int val) {
     val += 1;
     printf("%d\n", val);
@@ -310,54 +347,56 @@ int main() {
 0
 ```
 
-Add blocks of memory on the right
+Need blocks of stack frames here
 
 ---
 
 ### Pointers
 
-We need a lot more backround before this example
+The value of a pointer variable is a memory address
 
-- Holds an address in memory
-- 8 byte size in 64-bit systems
-- 4 byte size in 32-bit systems
-
-```c
-  int G = 1;
-  int* const GPtr = &G;
-  int main() {
-    print(sizeof(int*))
-    print(sizeof(char*))
-    *GPtr += 1;
-    print(GPtr)
-    print(*GPtr)
+```c []
+int G = 1;
+int* const GPtr = &G;
+int main() {
+    printf("%d\n", sizeof(int*));
+    printf("%d\n", sizeof(char*));
+    *GPtr = 2;
+    printf("%p %d %p %d\n", &G, G, GPtr, *GPtr);
     char c = '0';
-    char* const cPtr = &c;
-    print(cPtr)
-    print(*cPtr)
-    int* p = NULL;
-    print(x);
-    p = GPtr;
-    *p +=1;
-    print(x);
-    print(*x);
-  }
+    char* const cPtr = NULL;
+    cPtr = &c;
+    printf("%p %d %p %d\n", &c, c, cPtr, *cPtr);
+    cPtr = GPtr;
+    *cPtr += 1;
+    printf("%p %d %p %d\n", &G, G, GPtr, *GPtr);
+}
 ```
 
----
+```shell
+output
+```
 
-### Call By Reference trick
+Need blocks of memory here
 
-```c
+notes:
+Dereference `*` operator used to access the value stored at the memory location pointed to by a pointer  
+Address of `&` operator is used to obtain the memory address of a variable
+
+===
+
+### Call-By-Reference Trick
+
+```c []
 void Increment(int* val) {
-*val += 1;
-printf("%d\n", \*val);
+    *val += 1;
+    printf("%d\n", *val);
 }
 int main() {
-int i = 0;
-printf("%d\n", i);
-Increment(&i);
-printf("%d\n", i);
+    int i = 0;
+    printf("%d\n", i);
+    Increment(&i);
+    printf("%d\n", i);
 }
 ```
 
@@ -367,14 +406,15 @@ printf("%d\n", i);
 1
 ```
 
+Need blocks of stack frames here
+
 ---
 
 ### Structs
 
-- Allows definition of new type composed by simpler types
-- size is at least the sum of the member field sizes
+Definition of new type composed by simpler types
 
-```c
+```c []
 struct Pair {
     int x;
     int y;
@@ -383,8 +423,7 @@ typedef struct Pair Pair;
 int main() {
     printf("%d\n", sizeof(Pair));
     Pair pair1; //members uninitialized
-    pair1.x = 1;
-    pair1.y = 2;
+    pair1.x = 1 = pair1.y = 2;
     printf("%d %d\n", pair1.x, pair1.y);
     Pair pair2 = {.x=3, .y=4};
     printf("%d %d\n", pair2.x, pair2.y);
@@ -403,7 +442,9 @@ int main() {
 
 ### C-Arrays
 
-```c
+Size must be known at compile time
+
+```c []
 struct Pair {
     int x;
     int y;
@@ -413,9 +454,10 @@ typedef struct Pair Pair;
 int main() {
     Pair pairs1[PAIRS_SIZE]; //elements uninitialized
     printf("%d\n", sizeof(pairs1));
-    for (int i = 0; i < PAIRS_SIZE; ++i) { pairs[i].x=0; pairs[i].y=0; }
+    for (int i = 0; i < PAIRS_SIZE; ++i)
+        { pairs[i].x=0; pairs[i].y=0; }
     Pair pairs2[PAIRS_SIZE] = { {1, 1}, {1, 1}, {1, 1} };
-    Pair pairs3[PAIRS_SIZE] = {}; //elements initialized with zero
+    Pair pairs3[PAIRS_SIZE] = {}; //elements zero'ed
 }
 ```
 
@@ -423,31 +465,25 @@ int main() {
 output
 ```
 
----
+===
 
-### C-Arrays as pointers
+### C-Arrays As Pointers
 
-```c
-#define NUMBERS_SIZE 10
-PrintNumbers(int* nums) {
-    for (int i = 0; i < NUMBERS_SIZE; ++i) printf("%d ", nums[i]);
+```c []
+#define N_SIZE 10
+void PrintArray(int* arr) {
+    for (int i = 0; i < N_SIZE; ++i) printf("%d ", arr[i]);
 }
 int main() {
-    int numbers[NUMBERS_SIZE] = {1, 2}; //rest initialized with zero
-    PrintNumbers(numbers);
-    printf("\n");
-    int* const numbersAlias = numbers;
-    numbersAlias[0] = 3;
-    numbers[1] = 4;
-    *(numbersAlias + 2) = 5;
-    *(numbers + 3) = 6;
-    int* const numberIndexFive = numbers + 5;
-    *numberIndexFive = 7;
-    PrintNumbers(numbers);
-    printf("%p\n", &(numbers[6]));
-    printf("%p\n", numbers + 6);
-    printf("%p\n", &(numbersAlias[6]));
-    printf("%p\n", numbersAlias + 6);
+    int n[N_SIZE] = {1, 2}; //rest zero'ed
+    PrintArray(n); printf("\n");
+    int* const nAlias = n;
+    nAlias[0] = 3; n[1] = 4;
+    *(nAlias + 2) = 5; *(n + 3) = 6;
+    int* const nIdxFive = n + 5; *nIdxFive = 7;
+    PrintArray(n); printf("\n");
+    printf("%p %p\n", &(n[6]), (n + 6));
+    printf("%p %p\n", &(nAlias[6]), (nAlias + 6));
 }
 ```
 
@@ -459,36 +495,18 @@ output
 
 ### Dynamic Allocation
 
-```c
-struct Pair {
-    int x;
-    int y;
-};
-typedef struct Pair Pair;
-#define STR_SIZE 6
-#define PAIRS_SIZE 3
+- `malloc` returns pointer to newly allocated, uninitialized memory
+- `free` deallocates memory
+
+```c []
 int main() {
     int* numPtr = NULL;
-    numPtr = malloc(1 * sizeof(int)); //returns pointer to uninitialized memory
+    numPtr = malloc(1 * sizeof(int));
     *numPtr = 1;
     *(numPtr + 0) = 2;
     int num = *numPtr;
+    printf("%p %d %p %d\n", numPtr, *numPtr, &num, num);
     free(numPtr);
-
-    char* str = malloc(STR_SIZE * sizeof(char));
-    str[0]='H';str[1]='e';str[2]='l';str[3]='l';str[4]='o';str[5]='\0';
-    printf("%s\n", str);
-    memcpy(str, "World", STR_SIZE * sizeof(char)); //there is bug here
-    printf("%s\n", str);
-    free(str);
-
-    Pair* pairs = malloc(PAIRS_SIZE * sizeof(Pair));
-    memset(pairs, 0, PAIRS_SIZE * sizeof(Pair));
-    pairs[0].x=1; pairs[0].y=1;
-    *(pairs + 1).x=2; *(pairs + 1).y=2;
-    Pair* pairsIndexTwo = pairs + 2;
-    pairsIndexTwo->x=3; pairsIndexTwo->y=3;
-    free(pairs);
 }
 ```
 
@@ -496,50 +514,119 @@ int main() {
 output
 ```
 
+===
+
+### Dynamic Allocation Of Struct
+
+```c []
+struct Pair { int x; int y; };
+typedef struct Pair Pair;
+int main() {
+    int* pair = malloc(sizeof(Pair));
+    (*pair).x = (*pair).y = 1;
+    pair->x = pair->y = 2;
+    Pair temp = {.x=3, .y=3}; *pair = temp;
+    pair->x = pair->y = 4;
+    Pair result = *pair;
+    printf("%p %d %d\n", pair, pair->x, pair->y);
+    printf("%p %d %d\n", result, result->x, result->y);
+    printf("%p %d %d\n", temp, temp.x, temp.y);
+    free(pair);
+}
+```
+
+```shell
+output
+```
+
+===
+
+### Dynamic Allocation Of Struct-Array
+
+```c []
+typedef struct Pair { int x; int y; } Pair;
+#define PAIRS_SIZE 5
+void PrintPairs(Pairs* arr) {
+    for (int i = 0; i < N_SIZE; ++i)
+        printf("%d %d", arr[i].x, arr[i].y); }
+int main() {
+    Pair* pairs = malloc(PAIRS_SIZE * sizeof(Pair));
+    memset(pairs, 5, PAIRS_SIZE * sizeof(Pair));
+    pairs[0].x = pairs[0].y = 1;
+    *(pairs + 1).x = *(pairs + 1).y = 2;
+    (pairs + 2)->x = (pairs + 2)->y = 3;
+    Pair* pairsIdxThree = pairs + 3;
+    pairsIdxThree->x = pairsIdxThree->y = 4;
+    PrintPairs(pairs); printf("\n");
+    free(pairs); }
+```
+
+```shell
+output
+```
+
+Need blocks of memory here
+
 ---
 
-### Defining a list
+### Defining a Singly-Linked List
 
-```c
-struct Player {
+```c []
+struct PlayerNode {
     int id;
     int score;
-    struct Player* next;
+    struct PlayerNode* next;
 };
-typedef struct Player Player;
+typedef struct PlayerNode PlayerNode;
 struct PlayerList {
     Player* head;
 };
 typedef struct PlayerList PlayerList;
+```
+
+===
+
+```c []
 void PlayerList_Create() {
     PlayerList* list = malloc(sizeof(PlayerList));
     list->head = NULL;
     return list;
 }
 void PlayerList_Destroy(PlayerList* list) {
-    PlayerList *prev = NULL;
-    for (PlayerList curr = list->head; curr != NULL; curr = curr->next) {
+    PlayerNode *prev = NULL;
+    for (PlayerNode* p=list->head; p!=NULL; p=p->next) {
         free(prev);
-        prev = curr;
+        prev = p;
     }
     free(prev);
 }
-void PlayerList_Print(PlayerList* list) {
-    for (PlayerList curr = list->head; curr != NULL; curr = curr->next)
-        printf("{%p %d %d %p}", curr, curr->id, curr->score, curr->next)
-}
+```
+
+===
+
+```c []
 void PlayerList_Insert(PlayerList* list, int id) {
-    Player* node = malloc(sizeof(Player));
-    node->id = id
+    PlayerNode* node = malloc(sizeof(Player));
+    node->id = id;
     node->score = 0;
     node->next = NULL;
 
     node->next = list->head;
     list->head = node;
 }
+```
+
+===
+
+```c []
+void PlayerList_Print(PlayerList* list) {
+    for (PlayerNode* p = list->head; p!=NULL; p=p->next)
+        printf("{%p %d %d %p}",p,p->id,p->score,p->next)
+}
 int main() {
     PlayerList* list = PlayerList_Create();
     PlayerList_Insert(list, 10);
+    PlayerList_Insert(list, 20);
     PlayerList_Print(list);
     PlayerList_Destroy(list);
 }
@@ -548,5 +635,3 @@ int main() {
 ```shell
 output
 ```
-
----

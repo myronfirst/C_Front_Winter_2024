@@ -1,3 +1,15 @@
 {
-    "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "cSpell.ignoreWords": [
+    "Structs",
+    "Wextra",
+    "Wpedantic",
+    "curr",
+    "deallocates",
+    "ints",
+    "malloc",
+    "memcpy",
+    "memset",
+    "struct"
+  ]
 }
