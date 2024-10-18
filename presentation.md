@@ -10,8 +10,8 @@
 
 ![The_C_Programming_Language_logo](assets/The_C_Programming_Language_logo.png)
 
-CS240 - Data Structures  
-Winter 2024
+📚 CS240 - Data Structures 📚  
+⛄️ Winter 2024 ⛄️
 
 ---
 
@@ -93,7 +93,7 @@ Compilers installed in department machines may not support the latest standards.
 
 ===
 
-- **Preprocessor** parses your `#include` and `#define` directives
+- **Preprocessor** parses `#include` and `#define` directives
 - **Compiler** with assembler produce a machine instruction object file `.o` from a source code `.c` file
 - **Linker** combines object files to a single executable `.out/.exe`
 
@@ -101,7 +101,8 @@ Compilers installed in department machines may not support the latest standards.
 
 ### Debugging
 
-Live Demo
+Live Demo  
+🎉
 
 notes:
 
@@ -347,7 +348,9 @@ int main() {
 0
 ```
 
-Need blocks of stack frames here
+===
+
+![call_by_value](assets/call_by_value.png)
 
 ---
 
@@ -377,11 +380,13 @@ int main() {
 output
 ```
 
-Need blocks of memory here
-
 notes:
 Dereference `*` operator used to access the value stored at the memory location pointed to by a pointer  
 Address of `&` operator is used to obtain the memory address of a variable
+
+===
+
+![pointers](assets/pointers.png)
 
 ===
 
@@ -406,7 +411,9 @@ int main() {
 1
 ```
 
-Need blocks of stack frames here
+===
+
+![call_by_reference](assets/call_by_reference.png)
 
 ---
 
@@ -565,7 +572,9 @@ int main() {
 output
 ```
 
-Need blocks of memory here
+===
+
+![dyn_alloc_struct_array](assets/dyn_alloc_struct_array.png)
 
 ---
 
