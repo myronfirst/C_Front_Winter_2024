@@ -299,7 +299,7 @@ int main() {
 ```
 
 ```shell
-{3 0} {2 0} {1 0} {0 0}
+[3 0] [2 0] [1 0] [0 0]
 before break
 ```
 
@@ -700,8 +700,8 @@ int main() {
 ```
 
 ```shell
-{0x22662e0 20 0 0x22662c0}
-{0x22662c0 10 0 (nil)}
+[0x22662e0 20 0 0x22662c0]
+[0x22662c0 10 0 (nil)]
 ```
 
 <!-- .element: class="fragment fade-in" data-fragment-index="1" -->
