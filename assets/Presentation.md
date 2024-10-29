@@ -1,6 +1,3 @@
-<!-- Add Recursion? -->
-<!-- output verification -->
-
 ![C_Logo](assets/C_Logo.png)
 
 📚 CS240 - Data Structures 📚  
@@ -289,7 +286,7 @@ int main() {
     int j = 3;
     bool isDone = false;
     while(!isDone) {
-        printf("{%d %d} ", j, isDone);
+        printf("[%d %d] ", j, isDone);
         if (j > 0) { --j; continue; }
         isDone = true;
     }
@@ -691,7 +688,7 @@ void PlayerList_Insert(PlayerList* list, int id) {
 ```c []
 void PlayerList_Print(PlayerList* list) {
     for (PlayerNode* p = list->head; p!=NULL; p=p->next)
-        printf("{%p %d %d %p}\n",p,p->id,p->score,p->next);
+        printf("[%p %d %d %p]\n",p,p->id,p->score,p->next);
 }
 int main() {
     PlayerList* list = PlayerList_Create();
