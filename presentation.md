@@ -1,14 +1,7 @@
 <!-- Add Recursion? -->
-<!-- Add Pointer to Pointer? -->
-<!-- Add Multi-Dim Array? -->
-<!-- Add stack-heap allocated strings? -->
-<!-- Add Arrays of Pointers? -->
-<!-- Add Calloc/Realloc? -->
+<!-- output verification -->
 
-<!-- Don't forget shapes -->
-<!-- Don't forget godbolt links and output verification -->
-
-![The_C_Programming_Language_logo](assets/The_C_Programming_Language_logo.png)
+![C_Logo](assets/C_Logo.png)
 
 📚 CS240 - Data Structures 📚  
 ⛄️ Winter 2024 ⛄️
@@ -48,20 +41,22 @@ int main() {
 ```c []
 int main() {
       char a = '0';
-      printf("%d", sizeof(a));
-      printf("%d", sizeof(char));
-      printf("%d", sizeof(int));
-      printf("%d", sizeof(bool));
-      printf("%d", sizeof(double));
-      printf("%d", sizeof(char*));
-      printf("%d", sizeof(long*));
-      printf("%d", sizeof(void*));
+      printf("%d ", sizeof(a));
+      printf("%d ", sizeof(char));
+      printf("%d ", sizeof(int));
+      printf("%d ", sizeof(bool));
+      printf("%d ", sizeof(double));
+      printf("%d ", sizeof(char*));
+      printf("%d ", sizeof(long*));
+      printf("%d ", sizeof(void*));
 }
 ```
 
 ```shell
-output
+1 1 4 1 8 8 8 8
 ```
+
+<!-- .element: class="fragment fade-in" data-fragment-index="1" -->
 
 ---
 
@@ -124,19 +119,21 @@ int main() {
     printf("%d\n", d);
     d = --c;
     printf("%d\n", d);
-    bool d = a < c;
-    if (d) printf("less\n");
+    bool e = a < c;
+    if (e) printf("less\n");
     else if (a == c) printf("equal\n");
     else printf("greater equal\n");
 }
 ```
 
 ```shell
-3
-3
-3
+1
+1
+1
 greater equal
 ```
+
+<!-- .element: class="fragment fade-in" data-fragment-index="1" -->
 
 ===
 
@@ -173,7 +170,7 @@ int main() {
 
 - Brackets can cause scope change
 - We can only access variables of active scopes
-- Global scope is always accessible
+- Global scope is always active
 
 ```c []
 const bool c = false;
@@ -194,6 +191,8 @@ int main() {
 1 2 3
 ```
 
+<!-- .element: class="fragment fade-in" data-fragment-index="1" -->
+
 ---
 
 ### `enum` - `typedef`
@@ -211,7 +210,7 @@ enum Color {
 };
 typedef enum Color Color;
 int main() {
-    printf("%d\n",sizeof(Color));
+    printf("%d\n", sizeof(Color));
     Color c = Red;
     // enum Color c = Red; //Syntax without typedef
     if (c == Red)           printf("Red\n");
@@ -222,9 +221,11 @@ int main() {
 ```
 
 ```shell
-8
+4
 Red
 ```
+
+<!-- .element: class="fragment fade-in" data-fragment-index="1" -->
 
 ---
 
@@ -254,6 +255,8 @@ int main() {
 Green
 ```
 
+<!-- .element: class="fragment fade-in" data-fragment-index="1" -->
+
 ---
 
 ### Loops
@@ -273,9 +276,11 @@ int main() {
 ```
 
 ```shell
-1 2 3 4 5
-1 2 3 4 5
+1 2 3 4 5 6 7 8 9
+1 2 3 4 5 6 7 8 9
 ```
+
+<!-- .element: class="fragment fade-in" data-fragment-index="1" -->
 
 ===
 
@@ -284,7 +289,7 @@ int main() {
     int j = 3;
     bool isDone = false;
     while(!isDone) {
-        printf("{%d %d} \n", j, isDone);
+        printf("{%d %d} ", j, isDone);
         if (j > 0) { --j; continue; }
         isDone = true;
     }
@@ -297,9 +302,11 @@ int main() {
 ```
 
 ```shell
-{3 0} {2 0} {1 0}
+{3 0} {2 0} {1 0} {0 0}
 before break
 ```
+
+<!-- .element: class="fragment fade-in" data-fragment-index="1" -->
 
 ---
 
@@ -319,8 +326,11 @@ int main() {
 ```
 
 ```shell
-output here
+1 is Even
+3 is Even
 ```
+
+<!-- .element: class="fragment fade-in" data-fragment-index="1" -->
 
 notes:
 difference between IsEven and isEven
@@ -348,9 +358,31 @@ int main() {
 0
 ```
 
+<!-- .element: class="fragment fade-in" data-fragment-index="1" -->
+
 ===
 
 ![call_by_value](assets/call_by_value.png)
+
+===
+
+### Recursion
+
+```c []
+int Pow(int base, int exp) {
+    if (exp == 0) return 1;
+    return base * Pow(base, exp - 1);
+}
+int main() {
+    printf("%d\n", Pow(2, 10));
+}
+```
+
+```shell
+1024
+```
+
+<!-- .element: class="fragment fade-in" data-fragment-index="1" -->
 
 ---
 
@@ -362,12 +394,12 @@ The value of a pointer variable is a memory address
 int G = 1;
 int* const GPtr = &G;
 int main() {
-    printf("%d\n", sizeof(int*));
+    printf("%d ", sizeof(int*));
     printf("%d\n", sizeof(char*));
     *GPtr = 2;
     printf("%p %d %p %d\n", &G, G, GPtr, *GPtr);
-    char c = '0';
-    char* const cPtr = NULL;
+    int c = 0;
+    int* cPtr = NULL;
     cPtr = &c;
     printf("%p %d %p %d\n", &c, c, cPtr, *cPtr);
     cPtr = GPtr;
@@ -377,8 +409,13 @@ int main() {
 ```
 
 ```shell
-output
+8 8
+0x404018 2 0x404018 2
+0x7ffdf15d3904 0 0x7ffdf15d3904 0
+0x404018 3 0x404018 3
 ```
+
+<!-- .element: class="fragment fade-in" data-fragment-index="1" -->
 
 notes:
 Dereference `*` operator used to access the value stored at the memory location pointed to by a pointer  
@@ -411,6 +448,8 @@ int main() {
 1
 ```
 
+<!-- .element: class="fragment fade-in" data-fragment-index="1" -->
+
 ===
 
 ![call_by_reference](assets/call_by_reference.png)
@@ -430,7 +469,7 @@ typedef struct Pair Pair;
 int main() {
     printf("%d\n", sizeof(Pair));
     Pair pair1; //members uninitialized
-    pair1.x = 1 = pair1.y = 2;
+    pair1.x = 1; pair1.y = 2;
     printf("%d %d\n", pair1.x, pair1.y);
     Pair pair2 = {.x=3, .y=4};
     printf("%d %d\n", pair2.x, pair2.y);
@@ -440,10 +479,13 @@ int main() {
 ```
 
 ```shell
+8
 1 2
 3 4
 3 4
 ```
+
+<!-- .element: class="fragment fade-in" data-fragment-index="1" -->
 
 ---
 
@@ -462,15 +504,17 @@ int main() {
     Pair pairs1[PAIRS_SIZE]; //elements uninitialized
     printf("%d\n", sizeof(pairs1));
     for (int i = 0; i < PAIRS_SIZE; ++i)
-        { pairs[i].x=0; pairs[i].y=0; }
+        { pairs1[i].x=0; pairs1[i].y=0; }
     Pair pairs2[PAIRS_SIZE] = { {1, 1}, {1, 1}, {1, 1} };
     Pair pairs3[PAIRS_SIZE] = {}; //elements zero'ed
 }
 ```
 
 ```shell
-output
+24
 ```
+
+<!-- .element: class="fragment fade-in" data-fragment-index="1" -->
 
 ===
 
@@ -487,16 +531,21 @@ int main() {
     int* const nAlias = n;
     nAlias[0] = 3; n[1] = 4;
     *(nAlias + 2) = 5; *(n + 3) = 6;
-    int* const nIdxFive = n + 5; *nIdxFive = 7;
+    int* const nIdxFour = n + 4; *nIdxFour = 7;
     PrintArray(n); printf("\n");
-    printf("%p %p\n", &(n[6]), (n + 6));
-    printf("%p %p\n", &(nAlias[6]), (nAlias + 6));
+    printf("%p %p %d\n",&(n[5]),(n+5),n[5]);
+    printf("%p %p %d\n",&(nAlias[5]),(nAlias+5),nAlias[5]);
 }
 ```
 
 ```shell
-output
+1 2 0 0 0 0 0 0 0 0
+3 4 5 6 7 0 0 0 0 0
+0x7ffdb2f8cd74 0x7ffdb2f8cd74 0
+0x7ffdb2f8cd74 0x7ffdb2f8cd74 0
 ```
+
+<!-- .element: class="fragment fade-in" data-fragment-index="1" -->
 
 ---
 
@@ -518,8 +567,10 @@ int main() {
 ```
 
 ```shell
-output
+0x6df2a0 2 0x7ffed055c8a4 2
 ```
+
+<!-- .element: class="fragment fade-in" data-fragment-index="1" -->
 
 ===
 
@@ -529,22 +580,26 @@ output
 struct Pair { int x; int y; };
 typedef struct Pair Pair;
 int main() {
-    int* pair = malloc(sizeof(Pair));
+    Pair* pair = malloc(sizeof(Pair));
     (*pair).x = (*pair).y = 1;
     pair->x = pair->y = 2;
     Pair temp = {.x=3, .y=3}; *pair = temp;
     pair->x = pair->y = 4;
     Pair result = *pair;
     printf("%p %d %d\n", pair, pair->x, pair->y);
-    printf("%p %d %d\n", result, result->x, result->y);
+    printf("%p %d %d\n", result, result.x, result.y);
     printf("%p %d %d\n", temp, temp.x, temp.y);
     free(pair);
 }
 ```
 
 ```shell
-output
+0xf8c2a0 4 4
+0x400000004 4 4
+0x300000003 3 3
 ```
+
+<!-- .element: class="fragment fade-in" data-fragment-index="1" -->
 
 ===
 
@@ -553,14 +608,14 @@ output
 ```c []
 typedef struct Pair { int x; int y; } Pair;
 #define PAIRS_SIZE 5
-void PrintPairs(Pairs* arr) {
-    for (int i = 0; i < N_SIZE; ++i)
-        printf("%d %d", arr[i].x, arr[i].y); }
+void PrintPairs(Pair* arr) {
+    for (int i = 0; i < PAIRS_SIZE; ++i)
+        printf("%d%d ", arr[i].x, arr[i].y); }
 int main() {
     Pair* pairs = malloc(PAIRS_SIZE * sizeof(Pair));
-    memset(pairs, 5, PAIRS_SIZE * sizeof(Pair));
+    memset(pairs, 0, PAIRS_SIZE * sizeof(Pair));
     pairs[0].x = pairs[0].y = 1;
-    *(pairs + 1).x = *(pairs + 1).y = 2;
+    (*(pairs + 1)).x = (*(pairs + 1)).y = 2;
     (pairs + 2)->x = (pairs + 2)->y = 3;
     Pair* pairsIdxThree = pairs + 3;
     pairsIdxThree->x = pairsIdxThree->y = 4;
@@ -569,8 +624,10 @@ int main() {
 ```
 
 ```shell
-output
+11 22 33 44 00
 ```
+
+<!-- .element: class="fragment fade-in" data-fragment-index="1" -->
 
 ===
 
@@ -588,15 +645,19 @@ struct PlayerNode {
 };
 typedef struct PlayerNode PlayerNode;
 struct PlayerList {
-    Player* head;
+    PlayerNode* head;
 };
 typedef struct PlayerList PlayerList;
 ```
 
+notes:
+Why can't I declare `next` as
+`PlayerNode* next`;
+
 ===
 
 ```c []
-void PlayerList_Create() {
+PlayerList* PlayerList_Create() {
     PlayerList* list = malloc(sizeof(PlayerList));
     list->head = NULL;
     return list;
@@ -615,7 +676,7 @@ void PlayerList_Destroy(PlayerList* list) {
 
 ```c []
 void PlayerList_Insert(PlayerList* list, int id) {
-    PlayerNode* node = malloc(sizeof(Player));
+    PlayerNode* node = malloc(sizeof(PlayerNode));
     node->id = id;
     node->score = 0;
     node->next = NULL;
@@ -630,7 +691,7 @@ void PlayerList_Insert(PlayerList* list, int id) {
 ```c []
 void PlayerList_Print(PlayerList* list) {
     for (PlayerNode* p = list->head; p!=NULL; p=p->next)
-        printf("{%p %d %d %p}",p,p->id,p->score,p->next)
+        printf("{%p %d %d %p}\n",p,p->id,p->score,p->next);
 }
 int main() {
     PlayerList* list = PlayerList_Create();
@@ -642,5 +703,17 @@ int main() {
 ```
 
 ```shell
-output
+{0x22662e0 20 0 0x22662c0}
+{0x22662c0 10 0 (nil)}
 ```
+
+<!-- .element: class="fragment fade-in" data-fragment-index="1" -->
+
+---
+
+- 🧐 Provide feedback and report slide errors 🧐
+- 🤖 A.I. generated code is strictly prohibited 🤖
+
+---
+
+### 🎉 Thank you 🎉

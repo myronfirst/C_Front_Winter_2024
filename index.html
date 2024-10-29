@@ -6,22 +6,24 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
-
-    <title>reveal.js</title>
+    <title>C_Front_Winter_2024</title>
 
     <link rel="stylesheet" href="dist/reset.css" />
     <link rel="stylesheet" href="dist/reveal.css" />
     <!-- <link rel="stylesheet" href="dist/theme/black.css" /> -->
     <link rel="stylesheet" href="dist/theme/dracula.css" />
-    s
 
     <!-- Theme used for syntax highlighted code -->
-    <link rel="stylesheet" href="plugin/highlight/github-dark.css" />>
+    <link rel="stylesheet" href="plugin/highlight/github-dark.css" />
+  </head>
 
   <body>
     <div class="reveal">
       <div class="slides">
-        <section data-markdown="presentation.md" data-separator-vertical="^\r?\n===\r?\n$"></section>
+        <section
+          data-markdown="Presentation.md"
+          data-separator-vertical="^\r?\n===\r?\n$"
+        ></section>
       </div>
     </div>
 
@@ -37,16 +39,17 @@
         controls: true,
         controlsTutorial: true,
         progress: true,
-        // slideNumber: true,
-        slideNumber: "c/t", //fix
-        showSlideNumber: true,
+        slideNumber: "h.v",
         hashOneBasedIndex: true,
         hash: true,
         keyboard: true,
+        navigationMode: "linear",
+        fragments: true,
         showNotes: false,
-        // center: false,
-        // Learn about plugins: https://revealjs.com/plugins/
+        pdfSeparateFragments: false,
         plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+      }).then(() => {
+        Reveal.sync();
       });
     </script>
   </body>
