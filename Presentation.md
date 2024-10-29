@@ -312,9 +312,9 @@ before break
 Reusable pieces of code
 
 ```c []
-bool IsEven(int val) {return val % 2;}
+bool IsEven(int val) {return (val % 2) == 0;}
 void PrintEven(int val, bool isEven) {
-    if(isEven) printf("%d is Even\n", val, isEven);
+    if(isEven) printf("%d is Even\n", val);
 }
 int main() {
     for (int i = 0; i < 5; ++i)
@@ -323,8 +323,9 @@ int main() {
 ```
 
 ```shell
-1 is Even
-3 is Even
+0 is Even
+2 is Even
+4 is Even
 ```
 
 <!-- .element: class="fragment fade-in" data-fragment-index="1" -->
@@ -483,6 +484,9 @@ int main() {
 ```
 
 <!-- .element: class="fragment fade-in" data-fragment-index="1" -->
+
+notes:
+Take a break before this slide
 
 ---
 
