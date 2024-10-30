@@ -71,11 +71,11 @@ gcc -g -O0 -std=c99 -Wall -Wextra -Wpedantic -o main main.c
 - `-Wpedantic` strict ISO C compliance warnings
 
 notes:
-Suggestion:  
-Prefer picking the latest language standard like C11, or even C23.  
-Gives you access to useful language features.  
-Always check compiler support for picked standard.  
-Compilers installed in department machines may not support the latest standards.
+
+- Prefer picking the latest language standard like C11, or even C23.
+- Gives you access to useful language features.
+- Always check compiler support for picked standard.
+- Compilers installed in department machines may not support the latest standards.
 
 [Compiler Support](https://en.cppreference.com/w/c/compiler_support)
 
@@ -100,9 +100,11 @@ Live Demo
 
 notes:
 
-- hello world with some variables
-- build on vscode with wsl
-- configure and run gdb
+- hello world program with local vars and a function
+- run on wsl
+- build using vscode tasks
+- build using makefile
+- configure launch.json and run gdb
 
 ---
 
@@ -333,7 +335,9 @@ int main() {
 <!-- .element: class="fragment fade-in" data-fragment-index="1" -->
 
 notes:
-difference between IsEven and isEven
+
+- Difference between IsEven and isEven?
+- Description of IsEven in high level words
 
 ===
 
@@ -418,8 +422,9 @@ int main() {
 <!-- .element: class="fragment fade-in" data-fragment-index="1" -->
 
 notes:
-Dereference `*` operator used to access the value stored at the memory location pointed to by a pointer  
-Address of `&` operator is used to obtain the memory address of a variable
+
+- Dereference `*` operator used to access the value stored at the memory location pointed to by a pointer
+- Address of `&` operator is used to obtain the memory address of a variable
 
 ===
 
@@ -488,7 +493,8 @@ int main() {
 <!-- .element: class="fragment fade-in" data-fragment-index="1" -->
 
 notes:
-Take a break before this slide
+
+- Take a break before this slide
 
 ---
 
@@ -518,6 +524,11 @@ int main() {
 ```
 
 <!-- .element: class="fragment fade-in" data-fragment-index="1" -->
+
+notes:
+
+- `const` variables can't be used as array sizes
+- `const` variables are treated internally as variables, not compile-time constants
 
 ===
 
@@ -574,6 +585,12 @@ int main() {
 ```
 
 <!-- .element: class="fragment fade-in" data-fragment-index="1" -->
+
+notes:
+
+- The OS frees the memory of the entire process, regardless of internal dynamic allocations
+- It is good practice to always free your own resources.
+- It is necessary in long running applications eg. games, to prevent memory leaks.
 
 ===
 
@@ -654,8 +671,8 @@ typedef struct PlayerList PlayerList;
 ```
 
 notes:
-Why can't I declare `next` as
-`PlayerNode* next`;
+
+- Why can't I declare `next` as `PlayerNode* next`?
 
 ===
 
