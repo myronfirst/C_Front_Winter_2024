@@ -60,13 +60,15 @@ int main() {
 ### Compiling
 
 ```bash
-gcc -Wall -Wextra -Wpedantic -std=c99 -o main main.c
+gcc -g -O0 -std=c99 -Wall -Wextra -Wpedantic -o main main.c
 ```
 
+- `-g` debug symbols
+- `-O0` disable optimizations
+- `-std=c99` pick language standard ISO C99
 - `-Wall` warnings
 - `-Wextra` more warnings
 - `-Wpedantic` strict ISO C compliance warnings
-- `-std=c99` pick language standard ISO C99
 
 notes:
 Suggestion:  
