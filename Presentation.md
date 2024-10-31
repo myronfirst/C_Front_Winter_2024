@@ -627,13 +627,13 @@ int main() {
 
 ```c []
 typedef struct Pair { int x; int y; } Pair;
-#define PAIRS_SIZE 5
+const int PairsSize =  5;
 void PrintPairs(Pair* arr) {
-    for (int i = 0; i < PAIRS_SIZE; ++i)
+    for (int i = 0; i < PairsSize; ++i)
         printf("%d%d ", arr[i].x, arr[i].y); }
 int main() {
-    Pair* pairs = malloc(PAIRS_SIZE * sizeof(Pair));
-    memset(pairs, 0, PAIRS_SIZE * sizeof(Pair));
+    Pair* pairs = malloc(PairsSize * sizeof(Pair));
+    memset(pairs, 0, PairsSize * sizeof(Pair));
     pairs[0].x = pairs[0].y = 1;
     (*(pairs + 1)).x = (*(pairs + 1)).y = 2;
     (pairs + 2)->x = (pairs + 2)->y = 3;
